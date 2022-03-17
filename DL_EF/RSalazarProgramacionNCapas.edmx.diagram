@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="62530d1b0c6c4bddbbfcd13a5f265971" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="RSalazarProgramacionNCapasModel.Colonia" Width="1.5" PointX="7.5" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="RSalazarProgramacionNCapasModel.Estado" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="RSalazarProgramacionNCapasModel.Municipio" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="RSalazarProgramacionNCapasModel.Pai" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="RSalazarProgramacionNCapasModel.sysdiagram" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="RSalazarProgramacionNCapasModel.FK_Colonia_IdMunicipio" ManuallyRouted="false" />
+        <AssociationConnector Association="RSalazarProgramacionNCapasModel.EstadoFK" ManuallyRouted="false" />
+        <AssociationConnector Association="RSalazarProgramacionNCapasModel.FK_Municipio_IdEstado" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="RSalazarProgramacionNCapasModel.Direccion" Width="1.5" PointX="9.75" PointY="1.75" />
+        <EntityTypeShape EntityType="RSalazarProgramacionNCapasModel.Rol" Width="1.5" PointX="9.75" PointY="5.125" />
+        <AssociationConnector Association="RSalazarProgramacionNCapasModel.FK_Direccion_IdColonia" />
+        <EntityTypeShape EntityType="RSalazarProgramacionNCapasModel.Departamento" Width="1.5" PointX="5.625" PointY="4.875" />
+        <EntityTypeShape EntityType="RSalazarProgramacionNCapasModel.Area" Width="1.5" PointX="3.375" PointY="5" />
+        <AssociationConnector Association="RSalazarProgramacionNCapasModel.FK_Departamento_Area" />
+        <EntityTypeShape EntityType="RSalazarProgramacionNCapasModel.Proveedor" Width="1.5" PointX="5.625" PointY="9" />
+        <EntityTypeShape EntityType="RSalazarProgramacionNCapasModel.Producto" Width="1.5" PointX="7.875" PointY="8.375" />
+        <AssociationConnector Association="RSalazarProgramacionNCapasModel.FK_Departamento_IdDepartamento" />
+        <AssociationConnector Association="RSalazarProgramacionNCapasModel.FK_Proveedor_IdProveedor" />
+        <EntityTypeShape EntityType="RSalazarProgramacionNCapasModel.Usuario" Width="1.5" PointX="12" PointY="2" />
+        <AssociationConnector Association="RSalazarProgramacionNCapasModel.FK_Usuario_Direccion" />
+        <AssociationConnector Association="RSalazarProgramacionNCapasModel.FK_Usuario_Rol" />
+        <EntityTypeShape EntityType="RSalazarProgramacionNCapasModel.MetodoPago" Width="1.5" PointX="12" PointY="7.25" />
+        <EntityTypeShape EntityType="RSalazarProgramacionNCapasModel.VentaProducto" Width="1.5" PointX="16.5" PointY="7.375" />
+        <AssociationConnector Association="RSalazarProgramacionNCapasModel.FK__VentaProd__IdPro__29AC2CE0" />
+        <EntityTypeShape EntityType="RSalazarProgramacionNCapasModel.Venta" Width="1.5" PointX="14.25" PointY="4.125" />
+        <AssociationConnector Association="RSalazarProgramacionNCapasModel.FK__Venta__IdMetodoP__25DB9BFC" />
+        <AssociationConnector Association="RSalazarProgramacionNCapasModel.FK__Venta__IdUsuario__24E777C3" />
+        <AssociationConnector Association="RSalazarProgramacionNCapasModel.FK__VentaProd__IdVen__28B808A7" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

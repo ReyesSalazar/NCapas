@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="309d69e5-673c-4cdb-93ce-f706e399a6c6" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:25719/Producto.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Producto.xsd" MetadataType="Schema" ID="d599df5d-eeac-438a-ace5-4713756bd6d5" SourceId="1" SourceUrl="http://localhost:25719/Producto.svc?xsd=xsd3" />
+    <MetadataFile FileName="Producto.wsdl" MetadataType="Wsdl" ID="1faa9f91-a187-49c7-8dd4-0df008d8f7ee" SourceId="1" SourceUrl="http://localhost:25719/Producto.svc?wsdl" />
+    <MetadataFile FileName="Producto1.xsd" MetadataType="Schema" ID="b2fef9db-b63c-4f2f-8d82-6f55828ba9d3" SourceId="1" SourceUrl="http://localhost:25719/Producto.svc?xsd=xsd1" />
+    <MetadataFile FileName="Producto2.xsd" MetadataType="Schema" ID="78ad8bfc-ba19-47d5-afe4-1b80ed1c8bd0" SourceId="1" SourceUrl="http://localhost:25719/Producto.svc?xsd=xsd4" />
+    <MetadataFile FileName="Producto3.xsd" MetadataType="Schema" ID="03983740-f075-4a49-8b38-9f27d840a8aa" SourceId="1" SourceUrl="http://localhost:25719/Producto.svc?xsd=xsd2" />
+    <MetadataFile FileName="Producto4.xsd" MetadataType="Schema" ID="88fde866-e8b0-4dce-99fd-ad79e0e96bd4" SourceId="1" SourceUrl="http://localhost:25719/Producto.svc?xsd=xsd5" />
+    <MetadataFile FileName="Producto5.xsd" MetadataType="Schema" ID="88dba922-3409-424f-88aa-c35146417139" SourceId="1" SourceUrl="http://localhost:25719/Producto.svc?xsd=xsd0" />
+    <MetadataFile FileName="Producto.disco" MetadataType="Disco" ID="96e44531-2eaf-4840-aed5-360b8239eef4" SourceId="1" SourceUrl="http://localhost:25719/Producto.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

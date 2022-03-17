@@ -1,0 +1,1 @@
+No se insertó el producto con Nombre: Calcetas Moradas Error: An error occurred while executing the command definition. See the inner exception for details.

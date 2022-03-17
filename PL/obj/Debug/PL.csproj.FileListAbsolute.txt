@@ -1,0 +1,48 @@
+C:\Users\digis\Desktop\JTorresProgramacionNCapas08122021-master\PL\bin\Debug\PL.exe.config
+C:\Users\digis\Desktop\JTorresProgramacionNCapas08122021-master\PL\bin\Debug\PL.exe
+C:\Users\digis\Desktop\JTorresProgramacionNCapas08122021-master\PL\bin\Debug\PL.pdb
+C:\Users\digis\Desktop\JTorresProgramacionNCapas08122021-master\PL\bin\Debug\BL.dll
+C:\Users\digis\Desktop\JTorresProgramacionNCapas08122021-master\PL\bin\Debug\ML.dll
+C:\Users\digis\Desktop\JTorresProgramacionNCapas08122021-master\PL\bin\Debug\DL.dll
+C:\Users\digis\Desktop\JTorresProgramacionNCapas08122021-master\PL\bin\Debug\BL.pdb
+C:\Users\digis\Desktop\JTorresProgramacionNCapas08122021-master\PL\bin\Debug\ML.pdb
+C:\Users\digis\Desktop\JTorresProgramacionNCapas08122021-master\PL\bin\Debug\DL.pdb
+C:\Users\digis\Desktop\JTorresProgramacionNCapas08122021-master\PL\obj\Debug\PL.csprojResolveAssemblyReference.cache
+C:\Users\digis\Desktop\JTorresProgramacionNCapas08122021-master\PL\obj\Debug\PL.exe
+C:\Users\digis\Desktop\JTorresProgramacionNCapas08122021-master\PL\obj\Debug\PL.pdb
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\PL\obj\Debug\PL.csprojResolveAssemblyReference.cache
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\PL\bin\Debug\PL.exe.config
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\PL\bin\Debug\PL.exe
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\PL\bin\Debug\PL.pdb
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\PL\bin\Debug\BL.dll
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\PL\bin\Debug\EntityFramework.dll
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\PL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\PL\bin\Debug\ML.dll
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\PL\bin\Debug\DL.dll
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\PL\bin\Debug\DL_EF.dll
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\PL\bin\Debug\BL.pdb
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\PL\bin\Debug\ML.pdb
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\PL\bin\Debug\EntityFramework.xml
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\PL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\PL\bin\Debug\DL.pdb
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\PL\bin\Debug\DL_EF.pdb
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\PL\obj\Debug\PL.exe
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\PL\obj\Debug\PL.pdb
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\PL\bin\Debug\PL.exe.config
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\PL\bin\Debug\PL.exe
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\PL\bin\Debug\PL.pdb
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\PL\bin\Debug\BL.dll
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\PL\bin\Debug\EntityFramework.dll
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\PL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\PL\bin\Debug\ML.dll
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\PL\bin\Debug\DL_EF.dll
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\PL\bin\Debug\DL.dll
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\PL\bin\Debug\BL.pdb
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\PL\bin\Debug\ML.pdb
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\PL\bin\Debug\EntityFramework.xml
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\PL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\PL\bin\Debug\DL_EF.pdb
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\PL\bin\Debug\DL.pdb
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\PL\obj\Debug\PL.csprojResolveAssemblyReference.cache
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\PL\obj\Debug\PL.exe
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\PL\obj\Debug\PL.pdb

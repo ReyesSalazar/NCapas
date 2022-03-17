@@ -1,0 +1,1 @@
+No se insertó el usuario con nombre: reyers Apellidos:salazarr mezar Error: An error occurred while executing the command definition. See the inner exception for details.

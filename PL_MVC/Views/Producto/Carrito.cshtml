@@ -1,0 +1,63 @@
+﻿@model ML.Result
+@{
+    ViewBag.Title = "Carrito";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Carrito</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <div style="float:right">
+            @Html.ActionLink("Agregar productos", "GetAll", "Producto", htmlAttributes: new { @class = "btn btn-success" })
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <td class="hidden">IdProducto</td>
+                    <td class="text-center" style="font-weight:bold;">Nombre</td>
+                    <td class="text-center" style="font-weight:bold;">Precio Unitario</td>
+                    <td class="text-center" style="font-weight:bold;">Stock</td>
+                    <td class="text-center" style="font-weight:bold;">Descripcion</td>
+                    <td class="text-center" style="font-weight:bold;">Imagen</td>
+                    <td class="text-center" style="font-weight:bold;">Cantidad</td>
+                    <td class="text-center" style="font-weight:bold;">SubTotal</td>
+                    <td class="text-center" style="font-weight:bold;">Eliminar</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ML.VentaProducto ventaProducto in Model.Objects)
+                {
+                    <tr style="text-align-last:center">
+                        <td class="hidden">@ventaProducto.Producto.IdProducto</td>
+                        <td>@ventaProducto.Producto.Nombre</td>
+                        <td>@ventaProducto.Producto.PrecioUnitario</td>
+                        <td>@ventaProducto.Producto.Stock</td>
+                        <td>@ventaProducto.Producto.Descripcion</td>
+                        @if (ventaProducto.Producto.Imagen != null)
+                            {
+                                <td id="ImagenPreview"><img src="data:image/jpeg;base64,@Convert.ToBase64String(ventaProducto.Producto.Imagen)" width="100" height="100" /></td>
+                            }
+                            else
+                            {
+                                <td id="ImagePreview"><img src="~/Content/sinproducto.jpg" style=" height:150px; width:150px;" /></td>
+                            }
+                        <td>
+                            <a href="@Url.Action("Restar", "Producto", new { IdVentaProducto = ventaProducto.IdVentaProducto })" class="btn btn-danger">-</a>
+                            @Html.DisplayFor(model => ventaProducto.Cantidad, new { @class = "form-control" })
+                            <a href="@Url.Action("Sumar", "Producto", new { IdVentaProducto = ventaProducto.IdVentaProducto })" class="btn btn-success" >+</a>
+                        </td>
+                        <td></td>
+                        <td><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("DeleteCarrito", "Producto", new { IdVentaProducto = ventaProducto.IdVentaProducto })"><i class="fas fa-trash"></i></a>
+                    </tr>
+                }
+            </tbody>
+        </table> 
+    </div>
+</div>

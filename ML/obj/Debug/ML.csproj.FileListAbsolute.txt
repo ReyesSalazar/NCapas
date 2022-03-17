@@ -1,0 +1,14 @@
+C:\Users\digis\Desktop\JTorresProgramacionNCapas08122021-master\ML\bin\Debug\ML.dll
+C:\Users\digis\Desktop\JTorresProgramacionNCapas08122021-master\ML\bin\Debug\ML.pdb
+C:\Users\digis\Desktop\JTorresProgramacionNCapas08122021-master\ML\obj\Debug\ML.csprojResolveAssemblyReference.cache
+C:\Users\digis\Desktop\JTorresProgramacionNCapas08122021-master\ML\obj\Debug\ML.dll
+C:\Users\digis\Desktop\JTorresProgramacionNCapas08122021-master\ML\obj\Debug\ML.pdb
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\ML\bin\Debug\ML.dll
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\ML\bin\Debug\ML.pdb
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\ML\obj\Debug\ML.csprojResolveAssemblyReference.cache
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\ML\obj\Debug\ML.dll
+C:\Users\digis\Desktop\Respaldo de codigos c#\RSalazarProgramacionNCapas\ML\obj\Debug\ML.pdb
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\ML\bin\Debug\ML.dll
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\ML\bin\Debug\ML.pdb
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\ML\obj\Debug\ML.dll
+C:\Users\digis\Documents\Reyes Jose Salazar Meza\RSalazarProgramacionNCapas\ML\obj\Debug\ML.pdb

@@ -1,0 +1,731 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RSalazarProgramacionNCapasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Colonia">
+    <Key>
+      <PropertyRef Name="IdColonia" />
+    </Key>
+    <Property Name="IdColonia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="CodigoPostal" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdMunicipio" Type="Int32" />
+    <NavigationProperty Name="Municipio" Relationship="Self.FK_Colonia_IdMunicipio" FromRole="Colonia" ToRole="Municipio" />
+    <NavigationProperty Name="Direccions" Relationship="RSalazarProgramacionNCapasModel.FK_Direccion_IdColonia" FromRole="Colonia" ToRole="Direccion" />
+  </EntityType>
+  <EntityType Name="Estado">
+    <Key>
+      <PropertyRef Name="IdEstado" />
+    </Key>
+    <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdPais" Type="Int32" />
+    <NavigationProperty Name="Pai" Relationship="Self.EstadoFK" FromRole="Estado" ToRole="Pais" />
+    <NavigationProperty Name="Municipios" Relationship="Self.FK_Municipio_IdEstado" FromRole="Estado" ToRole="Municipio" />
+  </EntityType>
+  <EntityType Name="Municipio">
+    <Key>
+      <PropertyRef Name="IdMunicipio" />
+    </Key>
+    <Property Name="IdMunicipio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdEstado" Type="Int32" />
+    <NavigationProperty Name="Colonias" Relationship="Self.FK_Colonia_IdMunicipio" FromRole="Municipio" ToRole="Colonia" />
+    <NavigationProperty Name="Estado" Relationship="Self.FK_Municipio_IdEstado" FromRole="Municipio" ToRole="Estado" />
+  </EntityType>
+  <EntityType Name="Pai">
+    <Key>
+      <PropertyRef Name="IdPais" />
+    </Key>
+    <Property Name="IdPais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Estadoes" Relationship="Self.EstadoFK" FromRole="Pais" ToRole="Estado" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Colonia_IdMunicipio">
+    <End Role="Municipio" Type="Self.Municipio" Multiplicity="0..1" />
+    <End Role="Colonia" Type="Self.Colonia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Municipio">
+        <PropertyRef Name="IdMunicipio" />
+      </Principal>
+      <Dependent Role="Colonia">
+        <PropertyRef Name="IdMunicipio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EstadoFK">
+    <End Role="Pais" Type="Self.Pai" Multiplicity="0..1" />
+    <End Role="Estado" Type="Self.Estado" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pais">
+        <PropertyRef Name="IdPais" />
+      </Principal>
+      <Dependent Role="Estado">
+        <PropertyRef Name="IdPais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Municipio_IdEstado">
+    <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
+    <End Role="Municipio" Type="Self.Municipio" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Estado">
+        <PropertyRef Name="IdEstado" />
+      </Principal>
+      <Dependent Role="Municipio">
+        <PropertyRef Name="IdEstado" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="RSalazarProgramacionNCapasEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Colonias" EntityType="Self.Colonia" />
+    <EntitySet Name="Estadoes" EntityType="Self.Estado" />
+    <EntitySet Name="Municipios" EntityType="Self.Municipio" />
+    <EntitySet Name="Pais" EntityType="Self.Pai" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_Colonia_IdMunicipio" Association="Self.FK_Colonia_IdMunicipio">
+      <End Role="Municipio" EntitySet="Municipios" />
+      <End Role="Colonia" EntitySet="Colonias" />
+    </AssociationSet>
+    <AssociationSet Name="EstadoFK" Association="Self.EstadoFK">
+      <End Role="Pais" EntitySet="Pais" />
+      <End Role="Estado" EntitySet="Estadoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Municipio_IdEstado" Association="Self.FK_Municipio_IdEstado">
+      <End Role="Estado" EntitySet="Estadoes" />
+      <End Role="Municipio" EntitySet="Municipios" />
+    </AssociationSet>
+    <FunctionImport Name="DireccionAdd">
+      <Parameter Name="Calle" Mode="In" Type="String" />
+      <Parameter Name="NumeroInterior" Mode="In" Type="String" />
+      <Parameter Name="NumeroExterior" Mode="In" Type="String" />
+      <Parameter Name="IdColonia" Mode="In" Type="Int32" />
+      <Parameter Name="IdDireccion" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(RSalazarProgramacionNCapasModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(RSalazarProgramacionNCapasModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="Direccions" EntityType="RSalazarProgramacionNCapasModel.Direccion" />
+    <EntitySet Name="Rols" EntityType="RSalazarProgramacionNCapasModel.Rol" />
+    <AssociationSet Name="FK_Direccion_IdColonia" Association="RSalazarProgramacionNCapasModel.FK_Direccion_IdColonia">
+      <End Role="Colonia" EntitySet="Colonias" />
+      <End Role="Direccion" EntitySet="Direccions" />
+    </AssociationSet>
+    <FunctionImport Name="RolGetAll" ReturnType="Collection(RSalazarProgramacionNCapasModel.RolGetAll_Result)" />
+    <EntitySet Name="Departamentoes" EntityType="RSalazarProgramacionNCapasModel.Departamento" />
+    <FunctionImport Name="DepartamentoDelete">
+      <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Areas" EntityType="RSalazarProgramacionNCapasModel.Area" />
+    <AssociationSet Name="FK_Departamento_Area" Association="RSalazarProgramacionNCapasModel.FK_Departamento_Area">
+      <End Role="Area" EntitySet="Areas" />
+      <End Role="Departamento" EntitySet="Departamentoes" />
+    </AssociationSet>
+    <FunctionImport Name="AreaGetAll" ReturnType="Collection(RSalazarProgramacionNCapasModel.AreaGetAll_Result)" />
+    <FunctionImport Name="DepartamentoGetById" ReturnType="Collection(RSalazarProgramacionNCapasModel.DepartamentoGetById_Result)">
+      <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DepartamentoAdd">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="IdArea" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DepartamentoGetAll" ReturnType="Collection(RSalazarProgramacionNCapasModel.DepartamentoGetAll_Result)" />
+    <FunctionImport Name="DepartamentoUpdate">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="IdArea" Mode="In" Type="Int32" />
+      <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ProveedorAdd">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Telefono" Mode="In" Type="String" />
+      <Parameter Name="IdProveedor" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Proveedors" EntityType="RSalazarProgramacionNCapasModel.Proveedor" />
+    <EntitySet Name="Productoes" EntityType="RSalazarProgramacionNCapasModel.Producto" />
+    <AssociationSet Name="FK_Departamento_IdDepartamento" Association="RSalazarProgramacionNCapasModel.FK_Departamento_IdDepartamento">
+      <End Role="Departamento" EntitySet="Departamentoes" />
+      <End Role="Producto" EntitySet="Productoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Proveedor_IdProveedor" Association="RSalazarProgramacionNCapasModel.FK_Proveedor_IdProveedor">
+      <End Role="Proveedor" EntitySet="Proveedors" />
+      <End Role="Producto" EntitySet="Productoes" />
+    </AssociationSet>
+    <FunctionImport Name="ProductoAdd">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="PrecioUnitario" Mode="In" Type="Decimal" />
+      <Parameter Name="Stock" Mode="In" Type="String" />
+      <Parameter Name="IdProveedor" Mode="In" Type="Int32" />
+      <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Imagen" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="ProductoDelete">
+      <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ProductoGetAll" ReturnType="Collection(RSalazarProgramacionNCapasModel.ProductoGetAll_Result)" />
+    <FunctionImport Name="ProductoGetById" ReturnType="Collection(RSalazarProgramacionNCapasModel.ProductoGetById_Result)">
+      <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ProductoUpdate">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="PrecioUnitario" Mode="In" Type="Decimal" />
+      <Parameter Name="Stock" Mode="In" Type="String" />
+      <Parameter Name="IdProveedor" Mode="In" Type="Int32" />
+      <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+      <Parameter Name="Descripcion" Mode="In" Type="String" />
+      <Parameter Name="Imagen" Mode="In" Type="Binary" />
+      <Parameter Name="IdProducto" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UsuarioDelete">
+      <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ColoniaGetByIdMunicipio" ReturnType="Collection(RSalazarProgramacionNCapasModel.ColoniaGetByIdMunicipio_Result)">
+      <Parameter Name="IdMunicipio" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DireccionGetByIdColonia" ReturnType="Collection(RSalazarProgramacionNCapasModel.DireccionGetByIdColonia_Result)">
+      <Parameter Name="IdColonia" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="EstadoGetByIdPais" ReturnType="Collection(RSalazarProgramacionNCapasModel.EstadoGetByIdPais_Result)">
+      <Parameter Name="IdPais" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="MunicipioGetByIdEstado" ReturnType="Collection(RSalazarProgramacionNCapasModel.MunicipioGetByIdEstado_Result)">
+      <Parameter Name="IdEstado" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="PaisGetAll" ReturnType="Collection(RSalazarProgramacionNCapasModel.PaisGetAll_Result)" />
+    <FunctionImport Name="DireccionDelete">
+      <Parameter Name="IdDireccion" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UsuarioAdd">
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+      <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Sexo" Mode="In" Type="String" />
+      <Parameter Name="Telefono" Mode="In" Type="String" />
+      <Parameter Name="Celular" Mode="In" Type="String" />
+      <Parameter Name="FechaNacimiento" Mode="In" Type="String" />
+      <Parameter Name="CURP" Mode="In" Type="String" />
+      <Parameter Name="IdDireccion" Mode="In" Type="Int32" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="IdRol" Mode="In" Type="Int32" />
+      <Parameter Name="Estatus" Mode="In" Type="Boolean" />
+      <Parameter Name="Imagen" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="UsuarioUpdate">
+      <Parameter Name="UserName" Mode="In" Type="String" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+      <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Sexo" Mode="In" Type="String" />
+      <Parameter Name="Telefono" Mode="In" Type="String" />
+      <Parameter Name="Celular" Mode="In" Type="String" />
+      <Parameter Name="FechaNacimiento" Mode="In" Type="String" />
+      <Parameter Name="CURP" Mode="In" Type="String" />
+      <Parameter Name="IdDireccion" Mode="In" Type="Int32" />
+      <Parameter Name="Password" Mode="In" Type="String" />
+      <Parameter Name="IdRol" Mode="In" Type="Int32" />
+      <Parameter Name="Estatus" Mode="In" Type="Boolean" />
+      <Parameter Name="Imagen" Mode="In" Type="Binary" />
+      <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UsuarioGetById" ReturnType="Collection(RSalazarProgramacionNCapasModel.UsuarioGetById_Result)">
+      <Parameter Name="IdUsuario" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Usuarios" EntityType="RSalazarProgramacionNCapasModel.Usuario" />
+    <AssociationSet Name="FK_Usuario_Direccion" Association="RSalazarProgramacionNCapasModel.FK_Usuario_Direccion">
+      <End Role="Direccion" EntitySet="Direccions" />
+      <End Role="Usuario" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuario_Rol" Association="RSalazarProgramacionNCapasModel.FK_Usuario_Rol">
+      <End Role="Rol" EntitySet="Rols" />
+      <End Role="Usuario" EntitySet="Usuarios" />
+    </AssociationSet>
+    <FunctionImport Name="AreaGetById" ReturnType="Collection(RSalazarProgramacionNCapasModel.AreaGetById_Result)">
+      <Parameter Name="IdArea" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="DepartamentoGetByIdArea" ReturnType="Collection(RSalazarProgramacionNCapasModel.DepartamentoGetByIdArea_Result)">
+      <Parameter Name="IdArea" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ProductoGetByIdDepartamento" ReturnType="Collection(RSalazarProgramacionNCapasModel.ProductoGetByIdDepartamento_Result)">
+      <Parameter Name="IdDepartamento" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="UsuarioGetAll" ReturnType="Collection(RSalazarProgramacionNCapasModel.UsuarioGetAll_Result)">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="ApellidoPaterno" Mode="In" Type="String" />
+      <Parameter Name="ApellidoMaterno" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="MetodoPagoes" EntityType="RSalazarProgramacionNCapasModel.MetodoPago" />
+    <EntitySet Name="VentaProductoes" EntityType="RSalazarProgramacionNCapasModel.VentaProducto" />
+    <AssociationSet Name="FK__VentaProd__IdPro__29AC2CE0" Association="RSalazarProgramacionNCapasModel.FK__VentaProd__IdPro__29AC2CE0">
+      <End Role="Producto" EntitySet="Productoes" />
+      <End Role="VentaProducto" EntitySet="VentaProductoes" />
+    </AssociationSet>
+    <EntitySet Name="Ventas" EntityType="RSalazarProgramacionNCapasModel.Venta" />
+    <AssociationSet Name="FK__Venta__IdMetodoP__25DB9BFC" Association="RSalazarProgramacionNCapasModel.FK__Venta__IdMetodoP__25DB9BFC">
+      <End Role="MetodoPago" EntitySet="MetodoPagoes" />
+      <End Role="Venta" EntitySet="Ventas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Venta__IdUsuario__24E777C3" Association="RSalazarProgramacionNCapasModel.FK__Venta__IdUsuario__24E777C3">
+      <End Role="Usuario" EntitySet="Usuarios" />
+      <End Role="Venta" EntitySet="Ventas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__VentaProd__IdVen__28B808A7" Association="RSalazarProgramacionNCapasModel.FK__VentaProd__IdVen__28B808A7">
+      <End Role="Venta" EntitySet="Ventas" />
+      <End Role="VentaProducto" EntitySet="VentaProductoes" />
+    </AssociationSet>
+    <FunctionImport Name="UserNameGetById" ReturnType="Collection(RSalazarProgramacionNCapasModel.UserNameGetById_Result)">
+      <Parameter Name="UserName" Mode="In" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <EntityType Name="Direccion">
+    <Key>
+      <PropertyRef Name="IdDireccion" />
+    </Key>
+    <Property Name="IdDireccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Calle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="NumeroInterior" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="NumeroExterior" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="IdColonia" Type="Int32" />
+    <NavigationProperty Name="Colonia" Relationship="RSalazarProgramacionNCapasModel.FK_Direccion_IdColonia" FromRole="Direccion" ToRole="Colonia" />
+    <NavigationProperty Name="Usuarios" Relationship="RSalazarProgramacionNCapasModel.FK_Usuario_Direccion" FromRole="Direccion" ToRole="Usuario" />
+  </EntityType>
+  <EntityType Name="Rol">
+    <Key>
+      <PropertyRef Name="IdRol" />
+    </Key>
+    <Property Name="IdRol" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Usuarios" Relationship="RSalazarProgramacionNCapasModel.FK_Usuario_Rol" FromRole="Rol" ToRole="Usuario" />
+  </EntityType>
+  <Association Name="FK_Direccion_IdColonia">
+    <End Type="RSalazarProgramacionNCapasModel.Colonia" Role="Colonia" Multiplicity="0..1" />
+    <End Type="RSalazarProgramacionNCapasModel.Direccion" Role="Direccion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Colonia">
+        <PropertyRef Name="IdColonia" />
+      </Principal>
+      <Dependent Role="Direccion">
+        <PropertyRef Name="IdColonia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="RolGetAll_Result">
+    <Property Type="Int32" Name="IdRol" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <EntityType Name="Departamento">
+    <Key>
+      <PropertyRef Name="IdDepartamento" />
+    </Key>
+    <Property Name="IdDepartamento" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IdArea" Type="Int32" />
+    <NavigationProperty Name="Area" Relationship="RSalazarProgramacionNCapasModel.FK_Departamento_Area" FromRole="Departamento" ToRole="Area" />
+    <NavigationProperty Name="Productoes" Relationship="RSalazarProgramacionNCapasModel.FK_Departamento_IdDepartamento" FromRole="Departamento" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="Area">
+    <Key>
+      <PropertyRef Name="IdArea" />
+    </Key>
+    <Property Name="IdArea" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Departamentoes" Relationship="RSalazarProgramacionNCapasModel.FK_Departamento_Area" FromRole="Area" ToRole="Departamento" />
+  </EntityType>
+  <Association Name="FK_Departamento_Area">
+    <End Type="RSalazarProgramacionNCapasModel.Area" Role="Area" Multiplicity="0..1" />
+    <End Type="RSalazarProgramacionNCapasModel.Departamento" Role="Departamento" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Area">
+        <PropertyRef Name="IdArea" />
+      </Principal>
+      <Dependent Role="Departamento">
+        <PropertyRef Name="IdArea" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="AreaGetAll_Result">
+    <Property Type="Int32" Name="IdArea" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="DepartamentoGetById_Result">
+    <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="IdArea" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="DepartamentoGetAll_Result">
+    <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
+    <Property Type="String" Name="DepartamentoNombre" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="IdArea" Nullable="true" />
+    <Property Type="String" Name="AreaNombre" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <EntityType Name="Proveedor">
+    <Key>
+      <PropertyRef Name="IdProveedor" />
+    </Key>
+    <Property Name="IdProveedor" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Productoes" Relationship="RSalazarProgramacionNCapasModel.FK_Proveedor_IdProveedor" FromRole="Proveedor" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="PrecioUnitario" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Stock" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IdProveedor" Type="Int32" />
+    <Property Name="IdDepartamento" Type="Int32" />
+    <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Departamento" Relationship="RSalazarProgramacionNCapasModel.FK_Departamento_IdDepartamento" FromRole="Producto" ToRole="Departamento" />
+    <NavigationProperty Name="Proveedor" Relationship="RSalazarProgramacionNCapasModel.FK_Proveedor_IdProveedor" FromRole="Producto" ToRole="Proveedor" />
+    <NavigationProperty Name="VentaProductoes" Relationship="RSalazarProgramacionNCapasModel.FK__VentaProd__IdPro__29AC2CE0" FromRole="Producto" ToRole="VentaProducto" />
+  </EntityType>
+  <Association Name="FK_Departamento_IdDepartamento">
+    <End Type="RSalazarProgramacionNCapasModel.Departamento" Role="Departamento" Multiplicity="0..1" />
+    <End Type="RSalazarProgramacionNCapasModel.Producto" Role="Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Departamento">
+        <PropertyRef Name="IdDepartamento" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="IdDepartamento" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Proveedor_IdProveedor">
+    <End Type="RSalazarProgramacionNCapasModel.Proveedor" Role="Proveedor" Multiplicity="0..1" />
+    <End Type="RSalazarProgramacionNCapasModel.Producto" Role="Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Proveedor">
+        <PropertyRef Name="IdProveedor" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="IdProveedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="ProductoGetAll_Result">
+    <Property Type="Int32" Name="IdProducto" Nullable="false" />
+    <Property Type="String" Name="NombreProducto" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="PrecioUnitario" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="Stock" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="IdProveedor" Nullable="true" />
+    <Property Type="Int32" Name="IdDepartamento" Nullable="true" />
+    <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="100" />
+    <Property Type="Binary" Name="Imagen" Nullable="true" />
+    <Property Type="String" Name="ProveedorNombre" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Telefono" Nullable="false" MaxLength="15" />
+    <Property Type="String" Name="DepartamentoNombre" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="ProductoGetById_Result">
+    <Property Type="Int32" Name="IdProducto" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="PrecioUnitario" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="Stock" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="IdProveedor" Nullable="true" />
+    <Property Type="Int32" Name="IdDepartamento" Nullable="true" />
+    <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="100" />
+    <Property Type="Binary" Name="Imagen" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="ColoniaGetByIdMunicipio_Result">
+    <Property Type="Int32" Name="IdColonia" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="CodigoPostal" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="IdMunicipio" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="DireccionGetByIdColonia_Result">
+    <Property Type="Int32" Name="IdDireccion" Nullable="false" />
+    <Property Type="String" Name="Calle" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="NumeroInterior" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="NumeroExterior" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="IdColonia" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="EstadoGetByIdPais_Result">
+    <Property Type="Int32" Name="IdEstado" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="IdPais" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="MunicipioGetByIdEstado_Result">
+    <Property Type="Int32" Name="IdMunicipio" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="IdEstado" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="PaisGetAll_Result">
+    <Property Type="Int32" Name="IdPais" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="UsuarioGetById_Result">
+    <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ApellidoPaterno" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="ApellidoMaterno" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="254" />
+    <Property Type="String" Name="Sexo" Nullable="false" MaxLength="2" />
+    <Property Type="String" Name="Telefono" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="Celular" Nullable="true" MaxLength="20" />
+    <Property Type="DateTime" Name="FechaNacimiento" Nullable="false" />
+    <Property Type="String" Name="CURP" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="IdDireccion" Nullable="true" />
+    <Property Type="String" Name="Calle" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="NumeroInterior" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="NumeroExterior" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="IdColonia" Nullable="false" />
+    <Property Type="String" Name="ColoniaNombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="CodigoPostal" Nullable="false" MaxLength="10" />
+    <Property Type="Int32" Name="IdMunicipio" Nullable="false" />
+    <Property Type="String" Name="MunicipioNombre" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="IdEstado" Nullable="false" />
+    <Property Type="String" Name="EstadoNombre" Nullable="false" MaxLength="100" />
+    <Property Type="Int32" Name="IdPais" Nullable="false" />
+    <Property Type="String" Name="PaisNombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Password" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="IdRol" Nullable="true" />
+    <Property Type="String" Name="RolNombre" Nullable="false" MaxLength="100" />
+    <Property Type="Boolean" Name="Estatus" Nullable="true" />
+    <Property Type="Binary" Name="Imagen" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="IdUsuario" />
+    </Key>
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoPaterno" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ApellidoMaterno" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="254" FixedLength="false" Unicode="false" />
+    <Property Name="Sexo" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+    <Property Name="Telefono" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Celular" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="CURP" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="IdDireccion" Type="Int32" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="IdRol" Type="Int32" />
+    <Property Name="Estatus" Type="Boolean" />
+    <Property Name="Imagen" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Direccion" Relationship="RSalazarProgramacionNCapasModel.FK_Usuario_Direccion" FromRole="Usuario" ToRole="Direccion" />
+    <NavigationProperty Name="Rol" Relationship="RSalazarProgramacionNCapasModel.FK_Usuario_Rol" FromRole="Usuario" ToRole="Rol" />
+    <NavigationProperty Name="Ventas" Relationship="RSalazarProgramacionNCapasModel.FK__Venta__IdUsuario__24E777C3" FromRole="Usuario" ToRole="Venta" />
+  </EntityType>
+  <Association Name="FK_Usuario_Direccion">
+    <End Type="RSalazarProgramacionNCapasModel.Direccion" Role="Direccion" Multiplicity="0..1" />
+    <End Type="RSalazarProgramacionNCapasModel.Usuario" Role="Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Direccion">
+        <PropertyRef Name="IdDireccion" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="IdDireccion" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuario_Rol">
+    <End Type="RSalazarProgramacionNCapasModel.Rol" Role="Rol" Multiplicity="0..1" />
+    <End Type="RSalazarProgramacionNCapasModel.Usuario" Role="Usuario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Rol">
+        <PropertyRef Name="IdRol" />
+      </Principal>
+      <Dependent Role="Usuario">
+        <PropertyRef Name="IdRol" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="AreaGetById_Result">
+    <Property Type="Int32" Name="IdArea" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="DepartamentoGetByIdArea_Result">
+    <Property Type="Int32" Name="IdDepartamento" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="IdArea" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="ProductoGetByIdDepartamento_Result">
+    <Property Type="Int32" Name="IdProducto" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="100" />
+    <Property Type="Decimal" Name="PrecioUnitario" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="String" Name="Stock" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="IdProveedor" Nullable="true" />
+    <Property Type="Int32" Name="IdDepartamento" Nullable="true" />
+    <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="100" />
+    <Property Type="Binary" Name="Imagen" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="UsuarioGetAll_Result">
+    <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="ApellidoMaterno" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="254" />
+    <Property Type="String" Name="Sexo" Nullable="false" MaxLength="2" />
+    <Property Type="String" Name="Telefono" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="Celular" Nullable="false" MaxLength="20" />
+    <Property Type="DateTime" Name="FechaNacimiento" Nullable="false" />
+    <Property Type="String" Name="CURP" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="IdDireccion" Nullable="true" />
+    <Property Type="String" Name="Calle" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="NumeroInterior" Nullable="true" MaxLength="10" />
+    <Property Type="String" Name="NumeroExterior" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="ColoniaNombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="CodigoPostal" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="MunicipioNombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="EstadoNombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="PaisNombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Password" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="IdRol" Nullable="true" />
+    <Property Type="String" Name="RolNombre" Nullable="false" MaxLength="100" />
+    <Property Type="Boolean" Name="Estatus" Nullable="true" />
+    <Property Type="Binary" Name="Imagen" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="MetodoPago">
+    <Key>
+      <PropertyRef Name="IdMetodoPago" />
+    </Key>
+    <Property Name="IdMetodoPago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Metodo" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Ventas" Relationship="RSalazarProgramacionNCapasModel.FK__Venta__IdMetodoP__25DB9BFC" FromRole="MetodoPago" ToRole="Venta" />
+  </EntityType>
+  <EntityType Name="VentaProducto">
+    <Key>
+      <PropertyRef Name="IdVentaProducto" />
+    </Key>
+    <Property Name="IdVentaProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdVenta" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="IdProducto" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Producto" Relationship="RSalazarProgramacionNCapasModel.FK__VentaProd__IdPro__29AC2CE0" FromRole="VentaProducto" ToRole="Producto" />
+    <NavigationProperty Name="Venta" Relationship="RSalazarProgramacionNCapasModel.FK__VentaProd__IdVen__28B808A7" FromRole="VentaProducto" ToRole="Venta" />
+  </EntityType>
+  <Association Name="FK__VentaProd__IdPro__29AC2CE0">
+    <End Type="RSalazarProgramacionNCapasModel.Producto" Role="Producto" Multiplicity="1" />
+    <End Type="RSalazarProgramacionNCapasModel.VentaProducto" Role="VentaProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="IdProducto" />
+      </Principal>
+      <Dependent Role="VentaProducto">
+        <PropertyRef Name="IdProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Venta">
+    <Key>
+      <PropertyRef Name="IdVenta" />
+    </Key>
+    <Property Name="IdVenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+    <Property Name="Total" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="IdMetodoPago" Type="Int32" Nullable="false" />
+    <Property Name="Fecha" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MetodoPago" Relationship="RSalazarProgramacionNCapasModel.FK__Venta__IdMetodoP__25DB9BFC" FromRole="Venta" ToRole="MetodoPago" />
+    <NavigationProperty Name="Usuario" Relationship="RSalazarProgramacionNCapasModel.FK__Venta__IdUsuario__24E777C3" FromRole="Venta" ToRole="Usuario" />
+    <NavigationProperty Name="VentaProductoes" Relationship="RSalazarProgramacionNCapasModel.FK__VentaProd__IdVen__28B808A7" FromRole="Venta" ToRole="VentaProducto" />
+  </EntityType>
+  <Association Name="FK__Venta__IdMetodoP__25DB9BFC">
+    <End Type="RSalazarProgramacionNCapasModel.MetodoPago" Role="MetodoPago" Multiplicity="1" />
+    <End Type="RSalazarProgramacionNCapasModel.Venta" Role="Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MetodoPago">
+        <PropertyRef Name="IdMetodoPago" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="IdMetodoPago" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Venta__IdUsuario__24E777C3">
+    <End Type="RSalazarProgramacionNCapasModel.Usuario" Role="Usuario" Multiplicity="1" />
+    <End Type="RSalazarProgramacionNCapasModel.Venta" Role="Venta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="IdUsuario" />
+      </Principal>
+      <Dependent Role="Venta">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__VentaProd__IdVen__28B808A7">
+    <End Type="RSalazarProgramacionNCapasModel.Venta" Role="Venta" Multiplicity="1" />
+    <End Type="RSalazarProgramacionNCapasModel.VentaProducto" Role="VentaProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Venta">
+        <PropertyRef Name="IdVenta" />
+      </Principal>
+      <Dependent Role="VentaProducto">
+        <PropertyRef Name="IdVenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="UserNameGetById_Result">
+    <Property Type="Int32" Name="IdUsuario" Nullable="false" />
+    <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="ApellidoPaterno" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="ApellidoMaterno" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="254" />
+    <Property Type="String" Name="Sexo" Nullable="false" MaxLength="2" />
+    <Property Type="String" Name="Telefono" Nullable="false" MaxLength="20" />
+    <Property Type="String" Name="Celular" Nullable="false" MaxLength="20" />
+    <Property Type="DateTime" Name="FechaNacimiento" Nullable="false" />
+    <Property Type="String" Name="CURP" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="IdDireccion" Nullable="true" />
+    <Property Type="String" Name="Password" Nullable="true" MaxLength="100" />
+    <Property Type="Int32" Name="IdRol" Nullable="true" />
+    <Property Type="Boolean" Name="Estatus" Nullable="true" />
+    <Property Type="Binary" Name="Imagen" Nullable="true" />
+  </ComplexType>
+</Schema>

@@ -1,0 +1,116 @@
+﻿@model ML.Usuario
+@{
+    ViewBag.Title = "GetAll";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class ="text-center" style="border:double">
+    <h2>Usuarios</h2>
+    </div>
+<br />
+
+    <td><a class="btn btn-success glyphicon glyphicon-file" href="@Url.Action("CargaMasiva", "Usuario")"></a></td>
+
+    @*<div class="row">*@
+    <div style="float:right;">
+        @Html.ActionLink("+", "Form", "Usuario", htmlAttributes: new { @class = "btn btn-success" })
+    </div>
+
+    <div class="row">
+        @using (Html.BeginForm("GetAll", "Usuario", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="col-lg-offset-2">
+                <label for="html">Buscar usuario por nombre</label>
+            </div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(model => model.Nombre, new { @class = "form-control", @placeholder = "Nombre" })
+                @Html.ValidationMessageFor(model => model.Usuarios)
+            </div>
+
+            <div class="col-md-2">
+                @Html.TextBoxFor(model => model.ApellidoPaterno, new { @class = "form-control", @placeholder = "Apellido Paterno" })
+                @Html.ValidationMessageFor(model => model.Usuarios)
+            </div>
+
+            <div class="col-md-2">
+                @Html.TextBoxFor(model => model.ApellidoMaterno, new { @class = "form-control", @placeholder = "Apellido Materno" })
+                @Html.ValidationMessageFor(model => model.Usuarios)
+            </div>
+
+            <div class="col-md-1">
+                <input type="submit" value="Buscar" class="btn btn-info" />
+            </div>
+        }
+    </div>
+    <br />
+
+    <table style="text-align:center" class=" table-bordered table-striped table-responsive ">
+        @*<table class="center table-bordered table-responsive">*@
+            <thead>
+                <tr>
+                    <td>Editar</td>
+                    <td class="hidden">IdUsuario</td>
+                    <td>UserName</td>
+                    <td>Nombre</td>
+                    <td>Email</td>
+                    <td>Sexo</td>
+                    <td>Telefono</td>
+                    <td>Celular</td>
+                    <td>FechaNacimiento</td>
+                    <td>CURP</td>
+                    <td>Direccion</td>
+                    @*<td>Password</td>*@
+                    <td>Rol</td>
+                    <td>Estatus</td>
+                    <td>Imagen</td>
+                    <td>Eliminar</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (ML.Usuario usuario in Model.Usuarios)
+                {
+                    <tr>
+                        <td><a class="btn btn-warning glyphicon glyphicon-edit" href="@Url.Action("Form", "Usuario", new { IdUsuario = usuario.IdUsuario })"></a></td>
+                        <td class="hidden">@usuario.IdUsuario</td>
+                        <td>@usuario.UserName</td>
+                        <td>@usuario.Nombre 
+                        @usuario.ApellidoPaterno 
+                        @usuario.ApellidoMaterno</td>
+                        <td>@usuario.Email</td>
+                        <td>@usuario.Sexo</td>
+                        <td>@usuario.Telefono</td>
+                        <td>@usuario.Celular</td>
+                        <td>@usuario.FechaNacimiento</td>
+                        <td>@usuario.CURP</td>
+                        <td>@usuario.Direccion.Calle 
+                        @usuario.Direccion.NumeroInterior 
+                        @usuario.Direccion.NumeroExterior 
+                        @usuario.Direccion.Colonia.Nombre 
+                        @usuario.Direccion.Colonia.CodigoPostal 
+                        @usuario.Direccion.Colonia.Municipio.Nombre 
+                        @usuario.Direccion.Colonia.Municipio.Estado.Nombre 
+                        @usuario.Direccion.Colonia.Municipio.Estado.Pais.Nombre</td>
+                        @*<td>@usuario.Password</td>*@
+                        <td>@usuario.Rol.Nombre</td>
+                        @if (usuario.Estatus)
+                        {
+                            <td><a href="@Url.Action("UpdateStatus", "Usuario", new {IdUsuario = usuario.IdUsuario })"><img src="~/Img/activo.jpg" style="height:50px; width: 100px;" /></a></td>
+                        }
+                        else
+                        {
+                            <td><a href="@Url.Action("UpdateStatus", "Usuario", new {IdUsuario = usuario.IdUsuario })"><img src="~/Img/inactivo.jpg" style="height:50px; width: 100px;" /></a></td>
+                        }
+                        @if (usuario.Imagen != null)
+                        {
+                            <td><img src="data:image/jpeg;base64,@Convert.ToBase64String(usuario.Imagen)" style=" height:150px; width: 150px;" /></td>
+                        }
+                        else
+                        {
+                            <td><img src="~/Content/sinproducto.jpg" style=" height:150px; width:150px;" /></td>
+                        }
+
+                        <td><a class="btn btn-danger glyphicon glyphicon-trash" href="@Url.Action("Delete", "Usuario", new { IdUsuario = usuario.IdUsuario, IdDireccion = usuario.Direccion.IdDireccion })" onclick="return confirm('Estas seguro que deseas eliminar este registro?');"></a></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
